@@ -1,0 +1,50 @@
+# Minimal single-node SigNoz for a local kind cluster (~4–6 GiB usable RAM).
+# Keeps ClickHouse + collector + UI; disables optional HA / gateway / redpanda.
+
+clickhouse:
+  persistence:
+    enabled: true
+    size: 8Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 2Gi
+  zookeeper:
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        memory: 256Mi
+
+signoz:
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 768Mi
+  persistence:
+    enabled: true
+    size: 1Gi
+
+otelCollector:
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 768Mi
+
+# Licensed / HA pieces stay off for this demo.
+postgresql:
+  enabled: false
+signoz-otel-gateway:
+  enabled: false
+redpanda:
+  enabled: false

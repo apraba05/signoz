@@ -1,0 +1,5 @@
+.git
+*.md
+run.sh
+signoz-values.yaml
+k8s/
